@@ -1,11 +1,114 @@
-John Doe
-Software Engineer
-
-Contact Information
-Email: john.doe@example.com
-Phone: (123) 456-7890
-LinkedIn: linkedin.com/in/johndoe
-GitHub: github.com/johndoe
-
-Summary
-Experienced software engineer with 5+ years of experience in Python development, machine learning, and web applications. Passionate about solving complex problems and building scalable solutions.
+Jamal P.  Software Engineer
+ London, UK linkedin.com/in/jamal-pasha +44 7397 142045
+ PROFILE
+ pasha.jamal@icloud.com
+ Experienced Infrastructure & Cloud Team Leader with a proven track record in managing cloud-based services 
+and IT infrastructure. Skilled in leading teams, optimizing cloud solutions, and ensuring high availability and 
+security of systems. Adept at driving technical projects, collaborating with cross-functional teams, and 
+implementing cost-effective cloud strategies.
+ PROFESSIONAL EXPERIENCE
+ Huxan Holdings Group
+ Senior Software Engineer - Onematch UK
+ •
+ 04/2024 – present | London, UK
+ Architected secure, scalable microservices with Node.js, deployed via Kubernetes across AWS and Azure, 
+supporting 5,000+ real-time users at 99.9% uptime.
+ •
+ Designed modular conversation logic using Python and integrated custom LLMs for real-time automation 
+in support pipelines. 
+•
+ Implemented customer-facing analytics dashboards and chat-based interfaces using React/Next.js, 
+increasing service engagement by 45%. 
+•
+ Led onboarding of Azure Cognitive Services for multilingual customer interaction flows and entity 
+detection.
+ Tools: Jira, Azure DevOps, Power BI, SharePoint, AWS/Azure
+ Senior Software Engineer - Medi Mitr (Health-Tech)
+ •
+ 07/2023 – 04/2024
+ Deployed intelligent health chatbot platform using TensorFlow, Azure ML, and Python, improving user 
+recovery outcomes by 35%. 
+•
+ Integrated secure endpoints for medical data classification and conversational UX across devices with 
+Node.js and React. 
+•
+ Built scalable backend systems with CI/CD pipelines (Jenkins, Docker, Git), and deployed infrastructure on 
+Azure AKS
+ The House of qAmi (Tech Products Portfolio), 
+Freelance Product Consultant
+ •
+ 09/2022 – 07/2023 | London, UK/US
+ Consulted on the development of a mobile app portfolio (Match App, Connectverse, TAP app) using React 
+Native and AWS.
+ •
+ Architected a cross-platform social gaming app acquired for $300K USD.
+ •
+ Delivered prototypes and POCs using Unity and Unreal Engine 4, integrated with mobile workflows.
+ •
+ Reviewed and improved C#/Blueprint performance for in-development multi-user experiences.
+ Tools: Google Business, OpenAi API, Azure Kubernetes, Python, Tableau, Dart, C#
+ Google (via Software AG), Consultant
+ •
+ 09/2021 – 09/2022 | Remote, US
+ Migrated $2M+/day B2B infrastructure to Google Cloud (GCP) with zero downtime using Jenkins CI/CD, 
+ensuring 100% SLA compliance.
+ •
+ Resolved 272 ServiceNow tickets via automated monitoring (Datadog, Splunk), cutting resolution time by 
+15% across 1K+ stakeholders.
+ •
+ Saved $50K/year by optimising cloud resources and CI/CD pipelines (Jenkins, Gerrit).
+ •
+ Collaborated with executives to document workflows in Confluence, earning a 5/5 performance rating.
+ Tools: Jira, ServiceNow, Confluence, Power BI, Azure Kubernetes, Python, Tableau, Azure DevOps, Excel, Jenkins, GCP, 
+Splunk
+05/2020 – 05/2021
+ •
+ IEEE & PES University, Research Project Team Lead
+ Developed a fully autonomous AI-powered robot, integrating custom deep learning (CNN) for real-time 
+object detection and path optimization.
+ •
+ Engineered real-time communication using Google APIs (Firebase) and GSM modules.
+ •
+ Built & deployed the AI model on Jetson Nano (TensorFlow, OpenCV, ROS), achieving 95% detection 
+accuracy with optimized inference speeds. Published IEEE research (2022), 
+Tools: TensorFlow, OpenCV, ROS, Jetson Nano, Firebase, Google Cloud
+ EDUCATION
+ Masterʼs in International Business, 2:1, Brunel University London
+ Modules: Global Leadership, Organisational Behaviour, Organisational Management
+ Bachelorʼs in Electronics Engineering, 2:1, PES University
+ Modules: AI & Cloud Architecture, Analytics Programming, Embedded Computing
+ Active and Valid Certifications:
+ 2022 – 2023
+ 2018 – 2021
+ PRINCE2 6th Foundation, ITIL v4 Foundation, Google Project management course, Microsoft Azure Solutions 
+Architect Expert (AZ-305), Cisco Certified Ethical Hacker, AI Security & Governance by securiti
+ CORE COMPETENCY
+ • Cloud Architecture: AWS (EC2, S3, Lambda), Azure (AKS, Cosmos DB), GCP (Kubernetes), Terraform, Docker, 
+HashiCorp Vault, IAM, ARM Chips
+ • DevOps & Automation: CI/CD, GitHub Actions, Jenkins, Terraform, Azure DevOps, ARM Templates, Incident 
+Response Automation
+ • Programming Languages: TypeScript, Node.js, React, Python, PowerShell, Bash, Java, SQL
+ • Security & Compliance: IAM, RBAC, Azure Security Monitoring, GDPR, HIPAA, Incident Management
+ • Leadership: Agile/Scrum, Cross-functional Collaboration, Technical Mentorship
+ OTHER EXPERIENCES
+ Non-Profit Director, London Future Estd CIC
+ Building EcoZex (AI platform reducing SME energy costs by 20%).
+ •
+ Mentoring 10+ startups via TechStars London on cloud adoption.
+ •
+ Debater and Policy maker, United Nations
+ •
+ 11/2023 – present
+ 01/2023
+ As a committed signatory of the UNPRME (Principles for Responsible Management Education), Brunel 
+Business School invited a selected group of Master's students to take part in a strategy challenge to combat 
+climate change and business policies of different organizations.
+ General Manager, Basement 144
+ Increased event revenue by 25% via data-driven marketing and streamlined operations.
+ •
+ Human-Centered Design & Innovation, D-Ford
+ •
+ 05/2023 – 08/2023
+ 01/2023 – 04/2023
+ Prototyped AI-driven mobility platforms for autonomous transport, merging user-centric design with 
+scalable tech (Python, Azure IoT).
