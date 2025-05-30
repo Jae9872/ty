@@ -1,0 +1,12 @@
+Please create a fully optimized, ATS-friendly resume tailored to this job description:
+
+JOB DESCRIPTION:
+
+REQUIREMENTS:
+- Incorporate role-specific keywords for ATS compatibility
+- Format using bullet points for clear, scannable information 
+- Emphasize quantifiable achievements and metrics
+- Include all relevant technical skills and certifications
+- Adapt previous experience to highlight transferable skills
+- Limit to 1-2 pages with clean, professional formatting
+- Prioritize most relevant experience based on job requirements

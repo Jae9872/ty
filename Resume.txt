@@ -1,0 +1,11 @@
+John Doe
+Software Engineer
+
+Contact Information
+Email: john.doe@example.com
+Phone: (123) 456-7890
+LinkedIn: linkedin.com/in/johndoe
+GitHub: github.com/johndoe
+
+Summary
+Experienced software engineer with 5+ years of experience in Python development, machine learning, and web applications. Passionate about solving complex problems and building scalable solutions.
