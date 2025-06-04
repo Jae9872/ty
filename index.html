@@ -307,8 +307,45 @@
             return match ? match[1] : '';
         }
         function getFallbackResumePrompt() {
-            return `Please create a fully optimized, ATS-friendly resume tailored to this job description:\n\nJOB DESCRIPTION:\n\nREQUIREMENTS:\n- Incorporate role-specific keywords for ATS compatibility\n- Format using bullet points for clear, scannable information \n- Emphasize quantifiable achievements and metrics\n- Include all relevant technical skills and certifications\n- Adapt previous experience to highlight transferable skills\n- Limit to 1-2 pages with clean, professional formatting\n- Prioritize most relevant experience based on job requirements`;
-        }
+    return `You are an expert ATS resume optimizer. Generate ONLY these 3 elements in clean text format:
+
+1. Job Title: [Extract exact title from job description]
+2. Profile Summary: [2-3 lines max]
+3. Core Skills: [8-12 bullet points]
+
+STRICT RULES:
+- Extract job title verbatim from description
+- For Profile Summary:
+  • Use 3rd person perspective
+  • Start with strongest certification/experience
+  • Include 2+ quantifiable achievements
+  • Mirror 3 key job requirements
+  • Keep under 50 words
+- For Core Skills:
+  • MAX 12 bullet points
+  • Prioritize technical/hard skills
+  • Include certifications in parentheses
+  • Order by job description relevance
+  • Use format: \`• [Skill] ([Achievement Metric])\`
+- NEVER add explanations, headers, or other sections
+- Format EXACTLY like this example:
+
+Job Title: Senior Cloud Solutions Architect
+Profile Summary: AZ-305 certified expert with 5+ years designing cloud-native solutions. Reduced deployment cycles by 65% via automated CI/CD pipelines and secured infrastructure handling 5M+ user records. AWS/Azure specialist focused on scalable, cost-optimized architectures.
+Core Skills:
+• Cloud Architecture (AWS/Azure/GCP, 99.9% uptime)
+• CI/CD Automation (Jenkins/Terraform, 65% faster deployment)
+• Containerization (Docker/Kubernetes)
+• Infrastructure Security (GDPR/HIPAA compliance)
+• Cost Optimization (£200K annual savings)
+• Python (AI/ML integration)
+• Azure Solutions (AZ-305 certified)
+• Monitoring (Grafana/Prometheus)
+
+INPUT:
+[PASTE JOB DESCRIPTION HERE]
+[PASTE RESUME TEXT HERE]`;
+}
         function getFallbackCoverPrompt() {
             return `Please write a professional, compelling cover letter based on this job description:\n\nJOB DESCRIPTION:\n\nREQUIREMENTS:\n- Address the specific company and role\n- Show enthusiasm for the role and company\n- Highlight relevant skills and experiences\n- Include a strong call to action\n- Keep it concise (no more than one page)\n- Use a professional, conversational tone`;
         }
