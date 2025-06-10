@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume & Cover Letter Generator</title>
+    <style>
+        /* ... (CSS remains unchanged) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Resume & Cover Letter Generator</h1>
+            <p>One-click solution to create tailored professional documents</p>
+        </div>
+        <div class="content">
+            <div class="input-section">
+                <div class="section-title">
+                    <span>📋 Job Description</span>
+                </div>
+                
+                <div class="info-panel">
+                    <p>💡 Paste the job description below to generate tailored resume and cover letter prompts.</p>
+                    <p>✅ The text you enter will be automatically inserted into both prompts.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobDescription">Paste the job description below:</label>
+                    <textarea 
+                        id="jobDescription" 
+                        class="job-description" 
+                        placeholder="Paste the complete job description here to generate both resume and cover letter prompts..."
+                        rows="10">We are looking for a skilled Frontend Developer with expertise in React.js, Vue.js, and modern JavaScript. The ideal candidate will have 3+ years of experience building responsive web applications and a strong portfolio of projects. Responsibilities include developing user interface components, implementing responsive design principles, and collaborating with UX designers. Required skills: React, Vue, JavaScript, HTML5, CSS3, Redux, Git. Bonus: Experience with TypeScript and testing frameworks.</textarea>
+                </div>
+                <div id="status" class="status"></div>
+                <button id="generateBtn" class="generate-btn" onclick="generatePrompts()">
+                    Generate Prompts <span style="opacity: 0.9;">(Ctrl+Enter)</span>
+                </button>
+            </div>
+            <div class="output-container">
+                <div class="output-box">
+                    <div class="output-header">
+                        <h3>📄 Resume Prompt</h3>
+                        <button class="copy-btn" onclick="copyText('resumeOutput')">📋 Copy</button>
+                    </div>
+                    <textarea id="resumeOutput" class="output-content" readonly title="Resume Prompt Output" placeholder="Your generated resume prompt will appear here"></textarea>
+                </div>
+                <div class="output-box">
+                    <div class="output-header">
+                        <h3>✉️ Cover Letter Prompt</h3>
+                        <button class="copy-btn" onclick="copyText('coverOutput')">📋 Copy</button>
+                    </div>
+                    <textarea id="coverOutput" class="output-content" readonly title="Cover Letter Prompt Output" placeholder="Your generated cover letter prompt will appear here"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Resume & Cover Letter Generator | One-click professional documents</p>
+        </div>
+    </div>
+    <script>
+        // ========== UPDATED PROMPT TEMPLATES ==========
+        const resumePromptTemplate = `Rewrite my resume to match this job posting: 
+"{{JOB_DESCRIPTION}}"
+
+Apply these rules:  
+
+1.  **Position me as a high-ROI hire:**  
+    → Rewrite the first 2 lines as a **$100K+ problem-solver** – bold, specific, and value-driven (e.g., *"Operations Leader who cut costs by £200K"* not *"Experienced manager"*).  
+    → Turn *every* vague bullet point into a **results-driven achievement** using action verbs and measurable impact (e.g., *"Boosted sales 30% in Q1"* not *"Responsible for sales"*).  
+
+2.  **Optimise for ATS & relevance:**  
+    → Compare my resume to the job post. **List missing keywords/phrases** essential for ATS. Integrate them naturally.  
+    → **Highlight my MOST relevant experience** for *this specific role*. Trim or reframe less relevant parts.  
+
+3.  **Enforce HUMAN, conversational British English:**  
+    → Sound like a real person – **no robotic jargon**. Use contractions (e.g., "I've", "don't").  
+    → **Ditch:** em dashes (use commas), semicolons (use full stops), hedging ("however"), formal words ("utilise" → "use"), stock transitions ("furthermore").  
+    → **Keep it direct, concise, and varied in rhythm.** Example tone: *"Cut onboarding time by 50%, freeing up 200 team hours monthly."*  
+
+**Output format:**  
+- Revised resume lines & bullet points  
+- List of missing ATS keywords  
+- Brief rationale for key changes.  
+
+USING THIS CANDIDATE'S INFORMATION:  
+{{CANDIDATE_INFO}}`;
+
+        const coverPromptTemplate = `Write a tailored cover letter for this role using the job description below. Apply these rules:  
+
+"{{JOB_DESCRIPTION}}"
+
+1.  **OPENING HOOK**  
+    → Show *genuine fandom*: Mention 1-2 specific things you admire about their work/product/mission (e.g., *"I've followed [Company] since [specific project/campaign]..."*).  
+    → Include proof of research (e.g., *"Your recent initiative on [X] resonated..."*).  
+
+2.  **POSITION AS A CONTRIBUTOR**  
+    → Frame yourself as adding value to *their* momentum, not begging for a job (e.g., *"I'd love to help accelerate your growth in [Area]..."*).  
+    → Leverage location/niche expertise if relevant (e.g., *"As a London-based architect with...").  
+
+3.  **MATCH SKILLS TO JD**  
+    → Highlight 3-4 **key requirements** from the job description using **concrete examples** (e.g., *"When you mention needing [JD Skill], my experience [Result] at [Company] proves this..."*).  
+    → Name-drop **specific technologies** from the JD.  
+
+4.  **BRITISH HUMAN TONE**  
+    → **Sound conversational:** Use contractions ("I've", "you'll"), simple words ("use" not "utilise"), and occasional fragments.  
+    → **Cut robotic phrasing:** No "furthermore", "it is worth noting", or semicolons. Replace em dashes with commas.  
+    → **Enthusiastic but professional:** "Thrilled" not "excited"; "keen to discuss" not "eager to converse".  
+
+5.  **CALL TO ACTION**  
+    → **Be direct:** *"I've attached my resume – let's schedule a chat to discuss how I can [Specific Impact]."*  
+    → **Offer proof:** *"I'd welcome the chance to share my [Portfolio/Case Study]."*  
+
+6.  **CONCISE**  
+    → Max 1 page. Prioritize relevance over volume.  
+
+**Example Style Snippet:**  
+> *"As a longtime admirer of [Company]'s work on [Project], I was chuffed to see your opening for a [Role]. When I spotted your need for [JD Skill], it reminded me of how I [Achievement] at [Past Company]. I'd love to help you [JD Goal] – perhaps over a virtual cuppa next week?"*  
+
+**Output Format:**  
+- Full cover letter  
+- Brief rationale for key personalization/styling choices  
+
+USING THIS CANDIDATE'S INFORMATION:  
+{{CANDIDATE_INFO}}`;
+
+        // ========== REST OF THE JAVASCRIPT ==========
+        let resumeData = '';
+
+        // Simulated resume data for demonstration
+        const demoResumeData = `Jamal P.
+Cloud Infrastructure Architect
++44 7397 142045
+PROFILE
+pasha.jamal@icloud.com linkedin.com/in/jamal-pasha London, UK
+Certified Azure Solutions Architect expert (AZ-305) with over 5 years of experience designing secure, multi
+cloud architectures on Azure, AWS, and GCP. Proven record in hybrid platform builds (Apigee, EKS, 
+OpenShift), Terraform-based IaC, and resilient traffic systems using load balancers, DNS, and CI/CD.
+CORE COMPETENCIES
+Cloud Platforms: Azure (AKS, App Services, Azure DevOps, Cosmos DB), AWS (EC2, Lambda), GCP (BigQuery, 
+Cloud Functions)
+Architecture & IaC: Terraform, ARM/Bicep Templates, Kubernetes, Docker, Azure Blueprints, VNETs, 
+OpenShift, AKS, Apigee Hybrid
+DevOps & CI/CD: GitHub Actions, Jenkins, Azure DevOps, Helm, ServiceNow
+Security & Compliance: Azure IAM, RBAC, GDPR, SOC2, ISO, HashiCorp Vault, Azure Policy
+Programming: Python, C#, Bash, PowerShell, Java, JavaScript (Node.js), SQL
+Networking: VPCs, Load Balancers, DNS, CDN, GSLB, NAT Gateways
+Monitoring & Cost Ops: Prometheus, Grafana, Azure Monitor, FinOps strategies
+Collaboration: Agile, Scrum, Jira, Confluence, Stakeholder & C-level Communication
+PROFESSIONAL EXPERIENCE
+Huxan Holdings Group
+Senior Software Engineer
+•
+04/2024 – present | London, UK
+Led 6 engineers to build cross-cloud AI platforms (Azure, AWS, GCP) supporting 5K+ active business 
+users.
+Designed resilient AWS architecture with 99.9% uptime, using S3, EC2, Lambda, and API Gateway.
+•
+Built GDPR-compliant infrastructure using AWS IAM + HashiCorp Vault for PII data processing.
+•
+Spearheaded Kotlin mobile app MVP and closed beta test for a select user base.
+•
+Deployed real-time system with Redis + WebSockets, lifting user engagement by 45%
+•
+Senior Software Engineer - Medimitr
+•
+07/2023 – 04/2024 | London, UK
+Developed intelligent health ledger system using React/Node.js/MongoDB, to provide personalized 
+guidance for 5,000+ users 
+•
+Created secure Azure cloud architecture (AKS, Cosmos DB) for medical data, ensuring full compliance 
+with UK healthcare regulations 
+•
+Built AI-driven symptom tracking system with TensorFlow/Azure ML, improving patient recovery 
+outcomes by 35%
+Google (via Software AG), Software Engineering Consultant
+•
+09/2021 – 09/2022 | Remote, US
+Managed B2B integration infrastructure on GCP handling $2M/day in transactions, earning 5/5 rating from 
+Google executives
+•
+Executed zero-downtime migration of legacy systems using Jenkins/Terraform, maintaining critical 
+business operations 
+•
+Implemented automated incident response with Splunk/ServiceNow, reducing resolution time by 15% 
+across 272 production alerts 
+Implemented Azure Policy for cost/resource governance 
+•
+Optimized cloud resources through right-sizing and auto-scaling, generating £50K annual cost savings 
+•
+Deployed monitoring solutions with Grafana/Prometheus, reducing troubleshooting time by 30%
+•
+The House of qAmi (Tech Product Portfolio), 
+Freelance Cloud Consultant
+•
+09/2022 – 07/2023 | UK/US/Nigeria
+Consulted development of mobile app portfolio (Match Appp, Connectverse, TAP appp) using Kotlin, React 
+Native and AWS
+Architected and implemented a scalable social networking platform that was acquired for $300K USD
+•
+•
+Provided strategic business technology consulting and capital acquisition guidance, helping secure seed 
+funding
+IEEE & PES University, Research Project Team Lead
+•
+08/2020 – 08/2021 | Banglore
+Built autonomous robotics systems using OpenCV, ROS, and TensorFlow, achieving 95% navigation 
+accuracy.
+Authored IEEE-cited research on deep learning for visual detection, referenced in 50+ publications.
+•
+EDUCATION
+Brunel University London, Masterʼs in International Business, 2:1
+Modules: Global Leadership, Organisational Behaviour, Organisational Management
+•
+PES University, B.tech in Electronics Engineering, 2:1
+Modules: AI & Cloud Architecture, Analytics Programming, Embedded Computing
+•
+Key Certifications:
+2022 – 2023
+2018 – 2021
+Microsoft Azure Solutions Architect Expert (AZ-305), Microsoft Azure Administrator (AZ-104), PRINCE2 
+Certified Professional, ITIL v4, Certified Ethical Hacker, AI Security & Governance
+OTHER EXPERIENCES
+Non-Profit Director, London Future Estd CIC
+Development of EcoZex (AI platform reducing SME energy costs by 20%).
+•
+Debater and Policy maker, United Nations
+•
+11/2023 – present
+01/2023
+As a committed signatory of the UNPRME (Principles for Responsible Management Education), Brunel 
+Business School invited a selected group of Master's students to take part in a strategy challenge to combat 
+climate change and business policies of different organizations.
+Human-Centered Design & Innovation, D-Ford
+•
+01/2023 – 04/2023
+Prototyped AI-driven mobility platforms for autonomous transport, merging user-centric design with 
+scalable tech (Python, Azure IoT).
+General Manager, Basement 144
+Scaled revenue 25% via targeted social campaigns.
+•
+05/2023 – 08/2023`;
+
+        async function loadFiles() {
+            showStatus('Loading necessary files...', 'processing');
+            try {
+                resumeData = demoResumeData;
+                showStatus('✅ Files loaded successfully!', 'success');
+                document.getElementById('generateBtn').removeAttribute('disabled');
+                setTimeout(generatePrompts, 500);
+            } catch (error) {
+                console.error('Error loading files:', error);
+                showStatus('Failed to load required files. Using demo data.', 'error');
+                resumeData = demoResumeData;
+                document.getElementById('generateBtn').removeAttribute('disabled');
+            }
+        }
+
+        function generatePrompts() {
+            const jobDescription = document.getElementById('jobDescription').value.trim();
+            if (!jobDescription) {
+                showStatus('Please paste a job description first', 'error');
+                return;
+            }
+            
+            showStatus('Generating prompts...', 'processing');
+            
+            try {
+                // Insert job description and candidate data into both prompts
+                const resumePrompt = resumePromptTemplate
+                    .replace(/{{JOB_DESCRIPTION}}/g, jobDescription)
+                    .replace(/{{CANDIDATE_INFO}}/g, resumeData);
+                
+                const coverPrompt = coverPromptTemplate
+                    .replace(/{{JOB_DESCRIPTION}}/g, jobDescription)
+                    .replace(/{{CANDIDATE_INFO}}/g, resumeData);
+                
+                document.getElementById('resumeOutput').value = resumePrompt;
+                document.getElementById('coverOutput').value = coverPrompt;
+                
+                showStatus('✅ Prompts generated successfully!', 'success');
+            } catch (error) {
+                console.error('Error generating prompts:', error);
+                showStatus('Error generating prompts. Please try again.', 'error');
+            }
+        }
+
+        function copyText(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const parentBox = element.closest('.output-box');
+            const copyBtn = parentBox.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.style.background = '#c6f6d5';
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.background = '';
+            }, 2000);
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status status-${type}`;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                generatePrompts();
+            }
+        });
+
+        window.onload = function() {
+            document.getElementById('generateBtn').setAttribute('disabled', 'true');
+            loadFiles();
+        };
+    </script>
+</body>
+</html>
