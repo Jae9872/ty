@@ -347,41 +347,118 @@
         let coverPromptTemplate = '';
 
         // Simulated resume data for demonstration
-        const demoResumeData = `John Doe
-Frontend Developer
-San Francisco, CA | johndoe@example.com | (123) 456-7890
-
-SUMMARY:
-Experienced Frontend Developer with 4+ years of experience building responsive web applications using React, Vue, and modern JavaScript. Proven track record of delivering high-quality code and improving user experiences. Strong collaborator with UX/UI designers and backend developers.
-
-SKILLS:
-• React.js (4 years)
-• Vue.js (3 years)
-• JavaScript (ES6+)
-• HTML5 & CSS3
-• Redux & State Management
-• Responsive Design
-• Git & GitHub
-• TypeScript
-• Jest & Testing
-
-EXPERIENCE:
-Senior Frontend Developer
-Tech Innovations Inc. | Jan 2020 - Present
-- Developed 15+ React components for company's main SaaS product
-- Improved application performance by 40% through code optimization
-- Implemented responsive designs that increased mobile engagement by 25%
-- Mentored 3 junior developers in React best practices
-
-Frontend Developer
-Digital Solutions LLC | Mar 2018 - Dec 2019
-- Built e-commerce platform using Vue.js serving 50k monthly users
-- Reduced page load time by 30% through lazy loading implementation
-- Collaborated with UX team to redesign checkout flow, increasing conversions by 15%
-
-EDUCATION:
-B.S. Computer Science
-University of California | 2014 - 2018`;
+        const demoResumeData = `Jamal P.
+ Cloud Infrastructure Architect
+ +44 7397 142045
+ PROFILE
+ pasha.jamal@icloud.com linkedin.com/in/jamal-pasha London, UK
+ Certified Azure Solutions Architect expert (AZ-305) with over 5 years of experience designing secure, multi
+cloud architectures on Azure, AWS, and GCP. Proven record in hybrid platform builds (Apigee, EKS, 
+OpenShift), Terraform-based IaC, and resilient traffic systems using load balancers, DNS, and CI/CD.
+ CORE COMPETENCIES
+ Cloud Platforms: Azure (AKS, App Services, Azure DevOps, Cosmos DB), AWS (EC2, Lambda), GCP (BigQuery, 
+Cloud Functions)
+ Architecture & IaC: Terraform, ARM/Bicep Templates, Kubernetes, Docker, Azure Blueprints, VNETs, 
+OpenShift, AKS, Apigee Hybrid
+ DevOps & CI/CD: GitHub Actions, Jenkins, Azure DevOps, Helm, ServiceNow
+ Security & Compliance: Azure IAM, RBAC, GDPR, SOC2, ISO, HashiCorp Vault, Azure Policy
+ Programming: Python, C#, Bash, PowerShell, Java, JavaScript (Node.js), SQL
+ Networking: VPCs, Load Balancers, DNS, CDN, GSLB, NAT Gateways
+ Monitoring & Cost Ops: Prometheus, Grafana, Azure Monitor, FinOps strategies
+ Collaboration: Agile, Scrum, Jira, Confluence, Stakeholder & C-level Communication
+ PROFESSIONAL EXPERIENCE
+ Huxan Holdings Group
+ Senior Software Engineer
+ •
+ 04/2024 – present | London, UK
+ Led 6 engineers to build cross-cloud AI platforms (Azure, AWS, GCP) supporting 5K+ active business 
+users.
+ Designed resilient AWS architecture with 99.9% uptime, using S3, EC2, Lambda, and API Gateway.
+ •
+ Built GDPR-compliant infrastructure using AWS IAM + HashiCorp Vault for PII data processing.
+ •
+ Spearheaded Kotlin mobile app MVP and closed beta test for a select user base.
+ •
+ Deployed real-time system with Redis + WebSockets, lifting user engagement by 45%
+ •
+ Senior Software Engineer - Medimitr
+ •
+ 07/2023 – 04/2024 | London, UK
+ Developed intelligent health ledger system using React/Node.js/MongoDB, to provide personalized 
+guidance for 5,000+ users 
+•
+ Created secure Azure cloud architecture (AKS, Cosmos DB) for medical data, ensuring full compliance 
+with UK healthcare regulations 
+•
+ Built AI-driven symptom tracking system with TensorFlow/Azure ML, improving patient recovery 
+outcomes by 35%
+ Google (via Software AG), Software Engineering Consultant
+ •
+ 09/2021 – 09/2022 | Remote, US
+ Managed B2B integration infrastructure on GCP handling $2M/day in transactions, earning 5/5 rating from 
+Google executives
+ •
+ Executed zero-downtime migration of legacy systems using Jenkins/Terraform, maintaining critical 
+business operations 
+•
+ Implemented automated incident response with Splunk/ServiceNow, reducing resolution time by 15% 
+across 272 production alerts 
+Implemented Azure Policy for cost/resource governance 
+•
+ Optimized cloud resources through right-sizing and auto-scaling, generating £50K annual cost savings 
+•
+Deployed monitoring solutions with Grafana/Prometheus, reducing troubleshooting time by 30%
+ •
+ The House of qAmi (Tech Product Portfolio), 
+Freelance Cloud Consultant
+ •
+ 09/2022 – 07/2023 | UK/US/Nigeria
+ Consulted development of mobile app portfolio (Match Appp, Connectverse, TAP appp) using Kotlin, React 
+Native and AWS
+ Architected and implemented a scalable social networking platform that was acquired for $300K USD
+ •
+ •
+ Provided strategic business technology consulting and capital acquisition guidance, helping secure seed 
+funding
+ IEEE & PES University, Research Project Team Lead
+ •
+ 08/2020 – 08/2021 | Banglore
+ Built autonomous robotics systems using OpenCV, ROS, and TensorFlow, achieving 95% navigation 
+accuracy.
+ Authored IEEE-cited research on deep learning for visual detection, referenced in 50+ publications.
+ •
+ EDUCATION
+ Brunel University London, Masterʼs in International Business, 2:1
+ Modules: Global Leadership, Organisational Behaviour, Organisational Management
+ •
+ PES University, B.tech in Electronics Engineering, 2:1
+ Modules: AI & Cloud Architecture, Analytics Programming, Embedded Computing
+ •
+ Key Certifications:
+ 2022 – 2023
+ 2018 – 2021
+ Microsoft Azure Solutions Architect Expert (AZ-305), Microsoft Azure Administrator (AZ-104), PRINCE2 
+Certified Professional, ITIL v4, Certified Ethical Hacker, AI Security & Governance
+ OTHER EXPERIENCES
+ Non-Profit Director, London Future Estd CIC
+ Development of EcoZex (AI platform reducing SME energy costs by 20%).
+ •
+ Debater and Policy maker, United Nations
+ •
+ 11/2023 – present
+ 01/2023
+ As a committed signatory of the UNPRME (Principles for Responsible Management Education), Brunel 
+Business School invited a selected group of Master's students to take part in a strategy challenge to combat 
+climate change and business policies of different organizations.
+ Human-Centered Design & Innovation, D-Ford
+ •
+ 01/2023 – 04/2023
+ Prototyped AI-driven mobility platforms for autonomous transport, merging user-centric design with 
+scalable tech (Python, Azure IoT).
+ General Manager, Basement 144
+ Scaled revenue 25% via targeted social campaigns.
+ •
+ 05/2023 – 08/2023`;
 
         // Simulated prompt templates
         const demoResumePromptTemplate = `Rewrite my resume to match this job posting. Highlight my most relevant experience and position me as a high-ROI hire. Rewrite the first 2 lines of my resume to sound like a $100K+ problem-solver—bold, specific, and value-driven.
