@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Resume & Cover Letter Generator</title>
+    <title>Fixed Resume & Cover Letter Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -279,12 +279,12 @@
             margin-bottom: 15px;
             font-weight: 600;
             text-align: center;
-            display: none;
             font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            display: none;
         }
         .status-processing {
             background: #fef3c7;
@@ -410,7 +410,7 @@
     
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-file-contract"></i> Enhanced Resume & Cover Letter Generator</h1>
+            <h1><i class="fas fa-file-contract"></i> Resume & Cover Letter Generator</h1>
             <p>Create professional, tailored documents in seconds with AI-powered assistance</p>
         </div>
         <div class="content">
@@ -433,9 +433,7 @@
                         placeholder="Paste the complete job description here to generate both resume and cover letter prompts..."
                         rows="10">We are looking for a skilled Frontend Developer with expertise in React.js, Vue.js, and modern JavaScript. The ideal candidate will have 3+ years of experience building responsive web applications and a strong portfolio of projects. Responsibilities include developing user interface components, implementing responsive design principles, and collaborating with UX designers. Required skills: React, Vue, JavaScript, HTML5, CSS3, Redux, Git. Bonus: Experience with TypeScript and testing frameworks.</textarea>
                 </div>
-                <div id="status" class="status">
-                    <i class="fas fa-spinner fa-spin"></i> <span>Generating prompts...</span>
-                </div>
+                <div id="status" class="status"></div>
                 <button id="generateBtn" class="generate-btn" onclick="generatePrompts()">
                     <i class="fas fa-magic"></i> Generate Prompts <span style="opacity: 0.9;">(Ctrl+Enter)</span>
                 </button>
@@ -464,7 +462,7 @@
             </div>
         </div>
         <div class="footer">
-            <p><i class="fas fa-copyright"></i> Enhanced Resume & Cover Letter Generator | AI-powered professional documents</p>
+            <p><i class="fas fa-copyright"></i> Resume & Cover Letter Generator | AI-powered professional documents</p>
         </div>
     </div>
     
@@ -614,4 +612,124 @@ Revised resume lines & bullet points
 
 List of missing ATS keywords
 
-Brief rationale for key changes.
+Brief rationale for key changes.`;
+
+        const demoCoverPromptTemplate = `Please write a professional, compelling cover letter based on this job description:
+
+JOB DESCRIPTION:
+{{JOB_DESCRIPTION}}
+
+REQUIREMENTS:
+- Address the specific company and role
+- Show enthusiasm for the role and company
+- Highlight relevant skills and experiences that match the job requirements
+- Include a strong call to action
+- Keep it concise (no more than one page)
+- Use a professional, conversational tone
+- Tailor to the specific technologies mentioned in the job description
+
+USING THIS CANDIDATE'S INFORMATION:
+{{CANDIDATE_INFO}}`;
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            let icon = '';
+            if (type === 'processing') {
+                icon = '<i class="fas fa-spinner fa-spin"></i> ';
+            } else if (type === 'success') {
+                icon = '<i class="fas fa-check-circle"></i> ';
+            } else if (type === 'error') {
+                icon = '<i class="fas fa-exclamation-circle"></i> ';
+            }
+            statusEl.innerHTML = icon + message;
+            statusEl.className = `status status-${type}`;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function generatePrompts() {
+            const jobDescription = document.getElementById('jobDescription').value.trim();
+            if (!jobDescription) {
+                showStatus('Please paste a job description first', 'error');
+                showToast('Please enter a job description', true);
+                return;
+            }
+            
+            showStatus('Generating prompts...', 'processing');
+            
+            try {
+                // Properly insert job description and candidate data
+                const resumePrompt = demoResumePromptTemplate
+                    .replace('{{JOB_DESCRIPTION}}', jobDescription)
+                    .replace('{{CANDIDATE_INFO}}', demoResumeData);
+                
+                const coverPrompt = demoCoverPromptTemplate
+                    .replace('{{JOB_DESCRIPTION}}', jobDescription)
+                    .replace('{{CANDIDATE_INFO}}', demoResumeData);
+                
+                document.getElementById('resumeOutput').value = resumePrompt;
+                document.getElementById('coverOutput').value = coverPrompt;
+                
+                showStatus('Prompts generated successfully!', 'success');
+                showToast('Prompts generated successfully!');
+            } catch (error) {
+                console.error('Error generating prompts:', error);
+                showStatus('Error generating prompts. Please try again.', 'error');
+                showToast('Error generating prompts', true);
+            }
+        }
+
+        function copyText(elementId, button) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const parentBox = element.closest('.output-box');
+            const copyFeedback = parentBox.querySelector('.copy-feedback');
+            copyFeedback.classList.add('show');
+            
+            setTimeout(() => {
+                copyFeedback.classList.remove('show');
+            }, 2000);
+            
+            // Button feedback
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            button.style.background = '#c6f6d5';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                generatePrompts();
+            }
+        });
+
+        window.onload = function() {
+            // Auto-generate with sample data
+            setTimeout(generatePrompts, 500);
+        };
+    </script>
+</body>
+</html>
