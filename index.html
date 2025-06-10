@@ -461,9 +461,29 @@ scalable tech (Python, Azure IoT).
  05/2023 – 08/2023`;
 
         // Simulated prompt templates
-        const demoResumePromptTemplate = `Rewrite my resume to match this job posting. Highlight my most relevant experience and position me as a high-ROI hire. Rewrite the first 2 lines of my resume to sound like a $100K+ problem-solver—bold, specific, and value-driven.
-Also, compare this resume to the job post and highlight missing keywords or phrases that could affect my chances with ATS.
-Finally, turn any vague resume bullet points into results-driven achievements using action verbs and measurable impact.
+        const demoResumePromptTemplate = `Rewrite my resume to match [JOB POSTING TEXT/URL]. Apply these rules:
+
+Position me as a high-ROI hire:
+→ Rewrite the first 2 lines as a $100K+ problem-solver – bold, specific, and value-driven (e.g., "Operations Leader who cut costs by £200K" not "Experienced manager").
+→ Turn every vague bullet point into a results-driven achievement using action verbs and measurable impact (e.g., "Boosted sales 30% in Q1" not "Responsible for sales").
+
+Optimise for ATS & relevance:
+→ Compare my resume to the job post. List missing keywords/phrases essential for ATS. Integrate them naturally.
+→ Highlight my MOST relevant experience for this specific role. Trim or reframe less relevant parts.
+
+Enforce HUMAN, conversational British English:
+→ Sound like a real person – no robotic jargon. Use contractions (e.g., "I've", "don't").
+→ Ditch: em dashes (use commas), semicolons (use full stops), hedging ("however"), formal words ("utilise" → "use"), stock transitions ("furthermore").
+→ Keep it direct, concise, and varied in rhythm. Example tone: "Cut onboarding time by 50%, freeing up 200 team hours monthly."
+
+Output format:
+
+Revised resume lines & bullet points
+
+List of missing ATS keywords
+
+Brief rationale for key changes.
+
 
 
 Profile Summary: AZ-305 certified expert with 5+ years designing cloud-native solutions. Reduced deployment cycles by 65% via automated CI/CD pipelines and secured infrastructure handling 5M+ user records. AWS/Azure specialist focused on scalable, cost-optimized architectures.
