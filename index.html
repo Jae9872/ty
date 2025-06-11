@@ -3,733 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixed Resume & Cover Letter Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ATS Resume & Cover Letter AI Generator</title>
+    <meta name="description" content="Generate ATS-optimized resumes and cover letters tailored to specific job descriptions using AI prompts">
+    <meta name="keywords" content="resume generator, ATS optimization, cover letter, job application, AI">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+            padding: 20px; 
+            line-height: 1.6;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #2a5298, #1e3c72);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: #333;
-            position: relative;
-            overflow-x: hidden;
+        
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15); 
+            overflow: hidden; 
         }
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            pointer-events: none;
+        
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            text-align: center; 
+            padding: 40px; 
         }
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            width: 100%;
-            max-width: 1200px;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.3s ease;
+        
+        .header h1 { 
+            font-size: 3em; 
+            margin-bottom: 15px; 
+            font-weight: 300; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .container:hover {
-            transform: translateY(-5px);
-        }
-        .header {
-            background: linear-gradient(135deg, #2c3e50, #4a6491);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00c9ff, #92fe9d, #00c9ff);
-            animation: progressBar 3s linear infinite;
-            background-size: 200% 100%;
-        }
-        @keyframes progressBar {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+        
+        .header p { 
+            font-size: 1.2em; 
+            opacity: 0.95; 
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
         }
-        .content {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+        
+        .features { 
+            padding: 40px; 
+            background: #f8f9fa; 
+            text-align: center; 
         }
-        .input-section {
-            margin-bottom: 25px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            border: 1px solid #e9ecef;
+        
+        .features h2 { 
+            color: #333; 
+            margin-bottom: 30px; 
+            font-size: 2em; 
         }
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        .feature-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            margin-top: 30px; 
         }
-        .section-title span {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        
+        .feature-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease; 
         }
-        .form-group {
-            margin-bottom: 20px;
+        
+        .feature-card:hover { 
+            transform: translateY(-5px); 
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        
+        .feature-card h3 { 
+            color: #667eea; 
+            margin-bottom: 15px; 
+            font-size: 1.4em; 
+        }
+        
+        .content { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 0; 
+            min-height: 700px; 
+        }
+        
+        .input-section { 
+            padding: 40px; 
+            background: #f8f9fa; 
+            border-right: 1px solid #e9ecef; 
+        }
+        
+        .output-section { 
+            padding: 40px; 
+            background: white; 
+        }
+        
+        .form-group { 
+            margin-bottom: 25px; 
+        }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #333; 
+            font-size: 1.1em; 
+        }
+        
+        textarea { 
+            width: 100%; 
+            padding: 15px; 
+            border: 2px solid #e9ecef; 
+            border-radius: 10px; 
+            font-family: inherit; 
+            font-size: 14px; 
+            line-height: 1.5; 
+            resize: vertical; 
+            transition: all 0.3s ease; 
+        }
+        
+        textarea:focus { 
+            outline: none; 
+            border-color: #667eea; 
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15); 
+        }
+        
+        #jobDescription { 
+            min-height: 300px; 
+        }
+        
+        .generate-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            padding: 18px 35px; 
+            border-radius: 10px; 
+            font-size: 1.1em; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            width: 100%; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .generate-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4); 
+        }
+        
+        .output-box { 
+            background: #f8f9fa; 
+            border: 2px solid #e9ecef; 
+            border-radius: 10px; 
+            padding: 25px; 
+            min-height: 450px; 
+            font-family: 'Courier New', monospace; 
+            font-size: 13px; 
+            line-height: 1.5; 
+            white-space: pre-wrap; 
+            overflow-y: auto; 
+        }
+        
+        .copy-btn { 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            transition: all 0.3s ease; 
             font-weight: 600;
-            color: #2d3748;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .job-description {
-            width: 100%;
-            min-height: 150px;
-            padding: 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 16px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            resize: vertical;
-            transition: all 0.3s ease;
-            background: white;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        
+        .copy-btn:hover { 
+            background: #218838; 
+            transform: translateY(-1px);
         }
-        .job-description:focus {
-            outline: none;
-            border-color: #3182ce;
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2), inset 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .generate-btn {
-            background: linear-gradient(135deg, #2c3e50, #4a6491);
-            color: white;
-            border: none;
-            padding: 16px 30px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .generate-btn::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 40px;
-            height: 200%;
-            background: rgba(255,255,255,0.3);
-            transform: rotate(30deg);
-            transition: all 0.6s;
-        }
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
-        }
-        .generate-btn:hover::after {
-            left: 120%;
-        }
-        .generate-btn:active {
-            transform: translateY(0);
-        }
-        .generate-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
+        
+        .copy-btn:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
             transform: none;
         }
-        .output-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 20px;
+        
+        .status { 
+            margin-top: 15px; 
+            padding: 12px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            text-align: center; 
         }
-        .output-box {
-            background: white;
-            border-radius: 15px;
-            border: 2px solid #e2e8f0;
-            overflow: hidden;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        .status.success { 
+            background: #d4edda; 
+            color: #155724; 
+            border: 1px solid #c3e6cb; 
         }
-        .output-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-            border-color: #c5d9f1;
+        
+        .status.error { 
+            background: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb; 
         }
-        .output-header {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
-            padding: 15px 20px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        .instruction-textarea { 
+            min-height: 120px; 
         }
-        .output-header h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #2d3748;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        
+        .cover-letter-textarea { 
+            min-height: 160px; 
         }
-        .copy-btn {
-            background: #e2e8f0;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .copy-btn:hover {
-            background: #cbd5e0;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-        .output-content {
-            padding: 20px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 15px;
-            flex-grow: 1;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            min-height: 300px;
-            border: none;
-            resize: none;
-            background: #f8fafc;
-            line-height: 1.6;
-            transition: background 0.3s ease;
-        }
-        .output-content:focus {
-            outline: none;
-            background: #edf2f7;
-        }
-        .status {
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-weight: 600;
-            text-align: center;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            display: none;
-        }
-        .status-processing {
-            background: #fef3c7;
-            color: #d97706;
-            border: 2px solid #fcd34d;
-            display: flex;
-        }
-        .status-success {
-            background: #dcfce7;
-            color: #16a34a;
-            border: 2px solid #86efac;
-            display: flex;
-        }
-        .status-error {
-            background: #fee2e2;
-            color: #dc2626;
-            border: 2px solid #fca5a5;
-            display: flex;
-        }
-        .info-panel {
-            background: #e6f7ff;
-            border-left: 4px solid #1890ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 14px;
-        }
-        .info-panel p {
-            margin: 5px 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
+        
         .footer {
+            background: #333;
+            color: white;
             text-align: center;
-            padding: 20px;
-            color: #718096;
-            font-size: 14px;
-            border-top: 1px solid #e2e8f0;
-            margin-top: auto;
-            background: #f8f9fa;
+            padding: 30px;
         }
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: #4caf50;
-            color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
+        
+        .footer p {
+            opacity: 0.8;
         }
-        .toast.show {
-            transform: translateX(0);
-        }
-        .toast.error {
-            background: #f44336;
-        }
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .copy-feedback {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+        
+        .github-link {
+            color: #667eea;
+            text-decoration: none;
             font-weight: 600;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 10;
         }
-        .copy-feedback.show {
-            opacity: 1;
+        
+        .github-link:hover {
+            text-decoration: underline;
         }
-        @media (max-width: 768px) {
-            .output-container {
-                grid-template-columns: 1fr;
+        
+        @media (max-width: 768px) { 
+            .content { 
+                grid-template-columns: 1fr; 
+            } 
+            .input-section { 
+                border-right: none; 
+                border-bottom: 1px solid #e9ecef; 
             }
             .header h1 {
-                font-size: 2rem;
+                font-size: 2em;
             }
-            .content {
-                padding: 20px;
+            .feature-grid {
+                grid-template-columns: 1fr;
             }
-            .input-section {
-                padding: 20px;
-            }
-        }
-        .floating-icon {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.1;
-            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <!-- Floating decorative icons -->
-    <i class="floating-icon fas fa-file-alt" style="top: 10%; left: 5%;"></i>
-    <i class="floating-icon fas fa-briefcase" style="top: 20%; right: 7%;"></i>
-    <i class="floating-icon fas fa-search" style="bottom: 15%; left: 8%;"></i>
-    <i class="floating-icon fas fa-clipboard" style="bottom: 25%; right: 10%;"></i>
-    
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-file-contract"></i> Resume & Cover Letter Generator</h1>
-            <p>Create professional, tailored documents in seconds with AI-powered assistance</p>
+            <h1>🚀 ATS Resume & Cover Letter AI Generator</h1>
+            <p>Generate professional, ATS-optimized resumes and cover letters tailored to specific job descriptions using intelligent AI prompts. Stand out from the competition with personalized applications.</p>
         </div>
+        
+        <div class="features">
+            <h2>✨ Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 ATS Optimization</h3>
+                    <p>Generate prompts that create resumes optimized for Applicant Tracking Systems, ensuring your application gets noticed by recruiters.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📝 Smart Tailoring</h3>
+                    <p>Automatically analyze job descriptions and create personalized prompts that highlight your most relevant skills and experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Quick Generation</h3>
+                    <p>Get professional-quality resume and cover letter prompts in seconds. Perfect for applying to multiple positions efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Professional Format</h3>
+                    <p>Generate content that follows industry best practices and professional formatting standards for maximum impact.</p>
+                </div>
+            </div>
+        </div>
+        
         <div class="content">
             <div class="input-section">
-                <div class="section-title">
-                    <span><i class="fas fa-file-alt"></i> Job Description</span>
-                </div>
-                
-                <div class="info-panel">
-                    <p><i class="fas fa-lightbulb"></i> Paste the job description below to generate tailored resume and cover letter prompts.</p>
-                    <p><i class="fas fa-check-circle"></i> The text you enter will be automatically inserted into both prompts.</p>
-                    <p><i class="fas fa-bolt"></i> Use Ctrl+Enter to quickly generate prompts</p>
-                </div>
-                
                 <div class="form-group">
-                    <label for="jobDescription"><i class="fas fa-clipboard"></i> Paste the job description below:</label>
-                    <textarea 
-                        id="jobDescription" 
-                        class="job-description" 
-                        placeholder="Paste the complete job description here to generate both resume and cover letter prompts..."
-                        rows="10">We are looking for a skilled Frontend Developer with expertise in React.js, Vue.js, and modern JavaScript. The ideal candidate will have 3+ years of experience building responsive web applications and a strong portfolio of projects. Responsibilities include developing user interface components, implementing responsive design principles, and collaborating with UX designers. Required skills: React, Vue, JavaScript, HTML5, CSS3, Redux, Git. Bonus: Experience with TypeScript and testing frameworks.</textarea>
+                    <label for="jobDescription">📋 Job Description</label>
+                    <textarea id="jobDescription" placeholder="Paste the complete job description here including requirements, responsibilities, and company information..." required></textarea>
                 </div>
-                <div id="status" class="status"></div>
-                <button id="generateBtn" class="generate-btn" onclick="generatePrompts()">
-                    <i class="fas fa-magic"></i> Generate Prompts <span style="opacity: 0.9;">(Ctrl+Enter)</span>
-                </button>
+                
+                <button class="generate-btn" onclick="generateUnifiedPrompt()">🎯 Generate AI Prompts</button>
+                <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()" disabled style="width: 100%; margin-top: 10px;">📄 Copy Complete Prompt</button>
+                <div id="status"></div>
+
+                <div class="form-group" style="margin-top: 25px;">
+                    <label for="instructions">💡 Custom Instructions (Optional)</label>
+                    <textarea id="instructions" class="instruction-textarea" placeholder="Add any specific requirements or preferences for the resume/cover letter generation..."></textarea>
+                </div>
             </div>
-            <div class="output-container">
-                <div class="output-box">
-                    <div class="output-header">
-                        <h3><i class="fas fa-file"></i> Resume Prompt</h3>
-                        <button class="copy-btn" onclick="copyText('resumeOutput', this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                    </div>
-                    <div class="copy-feedback">Copied!</div>
-                    <textarea id="resumeOutput" class="output-content" readonly title="Resume Prompt Output" placeholder="Your generated resume prompt will appear here"></textarea>
-                </div>
-                <div class="output-box">
-                    <div class="output-header">
-                        <h3><i class="fas fa-envelope"></i> Cover Letter Prompt</h3>
-                        <button class="copy-btn" onclick="copyText('coverOutput', this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                    </div>
-                    <div class="copy-feedback">Copied!</div>
-                    <textarea id="coverOutput" class="output-content" readonly title="Cover Letter Prompt Output" placeholder="Your generated cover letter prompt will appear here"></textarea>
+            
+            <div class="output-section">
+                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.4em;">🤖 Generated AI Prompt</h3>
+                <div id="output" class="output-box">Your tailored AI prompt will appear here after analyzing the job description...</div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <strong>💡 How to use:</strong><br>
+                    1. Paste job description above<br>
+                    2. Click "Generate AI Prompts"<br>
+                    3. Copy the generated prompt<br>
+                    4. Use with ChatGPT, Claude, or any AI assistant<br>
+                    5. Get your tailored resume and cover letter!
                 </div>
             </div>
         </div>
+        
         <div class="footer">
-            <p><i class="fas fa-copyright"></i> Resume & Cover Letter Generator | AI-powered professional documents</p>
+            <p>Open source ATS Resume Generator | <a href="#" class="github-link">View on GitHub</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Built for job seekers who want to stand out with AI-powered personalization</p>
         </div>
     </div>
-    
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message">Success!</span>
-    </div>
-    
+
     <script>
-        let resumeData = '';
-        let resumePromptTemplate = '';
-        let coverPromptTemplate = '';
+        let generatedPrompt = '';
 
-        // Simulated resume data for demonstration
-        const demoResumeData = `Jamal P.
- Cloud Infrastructure Architect
- +44 7397 142045
- PROFILE
- pasha.jamal@icloud.com linkedin.com/in/jamal-pasha London, UK
- Certified Azure Solutions Architect expert (AZ-305) with over 5 years of experience designing secure, multi
-cloud architectures on Azure, AWS, and GCP. Proven record in hybrid platform builds (Apigee, EKS, 
-OpenShift), Terraform-based IaC, and resilient traffic systems using load balancers, DNS, and CI/CD.
- CORE COMPETENCIES
- Cloud Platforms: Azure (AKS, App Services, Azure DevOps, Cosmos DB), AWS (EC2, Lambda), GCP (BigQuery, 
-Cloud Functions)
- Architecture & IaC: Terraform, ARM/Bicep Templates, Kubernetes, Docker, Azure Blueprints, VNETs, 
-OpenShift, AKS, Apigee Hybrid
- DevOps & CI/CD: GitHub Actions, Jenkins, Azure DevOps, Helm, ServiceNow
- Security & Compliance: Azure IAM, RBAC, GDPR, SOC2, ISO, HashiCorp Vault, Azure Policy
- Programming: Python, C#, Bash, PowerShell, Java, JavaScript (Node.js), SQL
- Networking: VPCs, Load Balancers, DNS, CDN, GSLB, NAT Gateways
- Monitoring & Cost Ops: Prometheus, Grafana, Azure Monitor, FinOps strategies
- Collaboration: Agile, Scrum, Jira, Confluence, Stakeholder & C-level Communication
- PROFESSIONAL EXPERIENCE
- Huxan Holdings Group
- Senior Software Engineer
- •
- 04/2024 – present | London, UK
- Led 6 engineers to build cross-cloud AI platforms (Azure, AWS, GCP) supporting 5K+ active business 
-users.
- Designed resilient AWS architecture with 99.9% uptime, using S3, EC2, Lambda, and API Gateway.
- •
- Built GDPR-compliant infrastructure using AWS IAM + HashiCorp Vault for PII data processing.
- •
- Spearheaded Kotlin mobile app MVP and closed beta test for a select user base.
- •
- Deployed real-time system with Redis + WebSockets, lifting user engagement by 45%
- •
- Senior Software Engineer - Medimitr
- •
- 07/2023 – 04/2024 | London, UK
- Developed intelligent health ledger system using React/Node.js/MongoDB, to provide personalized 
-guidance for 5,000+ users 
-•
- Created secure Azure cloud architecture (AKS, Cosmos DB) for medical data, ensuring full compliance 
-with UK healthcare regulations 
-•
- Built AI-driven symptom tracking system with TensorFlow/Azure ML, improving patient recovery 
-outcomes by 35%
- Google (via Software AG), Software Engineering Consultant
- •
- 09/2021 – 09/2022 | Remote, US
- Managed B2B integration infrastructure on GCP handling $2M/day in transactions, earning 5/5 rating from 
-Google executives
- •
- Executed zero-downtime migration of legacy systems using Jenkins/Terraform, maintaining critical 
-business operations 
-•
- Implemented automated incident response with Splunk/ServiceNow, reducing resolution time by 15% 
-across 272 production alerts 
-Implemented Azure Policy for cost/resource governance 
-•
- Optimized cloud resources through right-sizing and auto-scaling, generating £50K annual cost savings 
-•
-Deployed monitoring solutions with Grafana/Prometheus, reducing troubleshooting time by 30%
- •
- The House of qAmi (Tech Product Portfolio), 
-Freelance Cloud Consultant
- •
- 09/2022 – 07/2023 | UK/US/Nigeria
- Consulted development of mobile app portfolio (Match Appp, Connectverse, TAP appp) using Kotlin, React 
-Native and AWS
- Architected and implemented a scalable social networking platform that was acquired for $300K USD
- •
-•
- Provided strategic business technology consulting and capital acquisition guidance, helping secure seed 
-funding
- IEEE & PES University, Research Project Team Lead
- •
- 08/2020 – 08/2021 | Banglore
- Built autonomous robotics systems using OpenCV, ROS, and TensorFlow, achieving 95% navigation 
-accuracy.
- Authored IEEE-cited research on deep learning for visual detection, referenced in 50+ publications.
- •
- EDUCATION
- Brunel University London, Masterʼs in International Business, 2:1
- Modules: Global Leadership, Organisational Behaviour, Organisational Management
- •
- PES University, B.tech in Electronics Engineering, 2:1
- Modules: AI & Cloud Architecture, Analytics Programming, Embedded Computing
- •
- Key Certifications:
- 2022 – 2023
- 2018 – 2021
- Microsoft Azure Solutions Architect Expert (AZ-305), Microsoft Azure Administrator (AZ-104), PRINCE2 
-Certified Professional, ITIL v4, Certified Ethical Hacker, AI Security & Governance
- OTHER EXPERIENCES
- Non-Profit Director, London Future Estd CIC
- Development of EcoZex (AI platform reducing SME energy costs by 20%).
- •
- Debater and Policy maker, United Nations
- •
- 11/2023 – present
- 01/2023
- As a committed signatory of the UNPRME (Principles for Responsible Management Education), Brunel 
-Business School invited a selected group of Master's students to take part in a strategy challenge to combat 
-climate change and business policies of different organizations.
- Human-Centered Design & Innovation, D-Ford
- •
- 01/2023 – 04/2023
- Prototyped AI-driven mobility platforms for autonomous transport, merging user-centric design with 
-scalable tech (Python, Azure IoT).
- General Manager, Basement 144
- Scaled revenue 25% via targeted social campaigns.
- •
- 05/2023 – 08/2023`;
+        function generateUnifiedPrompt() {
+            const jobDescription = document.getElementById('jobDescription').value.trim();
+            const customInstructions = document.getElementById('instructions').value.trim();
+            
+            if (!jobDescription) {
+                showStatus('Please paste a job description first.', 'error');
+                return;
+            }
 
-        // Simulated prompt templates
-        const demoResumePromptTemplate = `Rewrite my resume to match [JOB POSTING TEXT/URL]. Apply these rules:
+            const basePrompt = `# Professional Resume & Cover Letter Generation Request
 
-Position me as a high-ROI hire:
-→ Rewrite the first 2 lines as a $100K+ problem-solver – bold, specific, and value-driven (e.g., "Operations Leader who cut costs by £200K" not "Experienced manager").
-→ Turn every vague bullet point into a results-driven achievement using action verbs and measurable impact (e.g., "Boosted sales 30% in Q1" not "Responsible for sales").
+## Job Analysis
+Please analyze the following job posting and create a tailored resume and cover letter based on the provided context:
 
-Optimise for ATS & relevance:
-→ Compare my resume to the job post. List missing keywords/phrases essential for ATS. Integrate them naturally.
-→ Highlight my MOST relevant experience for this specific role. Trim or reframe less relevant parts.
+**Job Description:**
+${jobDescription}
 
-Enforce HUMAN, conversational British English:
-→ Sound like a real person – no robotic jargon. Use contractions (e.g., "I've", "don't").
-→ Ditch: em dashes (use commas), semicolons (use full stops), hedging ("however"), formal words ("utilise" → "use"), stock transitions ("furthermore").
-→ Keep it direct, concise, and varied in rhythm. Example tone: "Cut onboarding time by 50%, freeing up 200 team hours monthly."
+## Resume Generation Instructions
+Create an ATS-optimized resume with the following specifications:
 
-Output format:
+### Format Requirements:
+- Clean, professional layout optimized for ATS systems
+- Clear section headers and consistent formatting
+- Bullet points with strong action verbs and quantified achievements
+- Keywords naturally integrated from the job description
+- 1-2 pages maximum length
 
-Revised resume lines & bullet points
+### Content Structure:
+1. **Contact Information** - Professional email, phone, LinkedIn, location
+2. **Professional Summary** - 3-4 lines highlighting relevant experience and key skills
+3. **Core Competencies** - 8-12 relevant technical and soft skills
+4. **Professional Experience** - 3-4 most relevant positions with:
+   - Company, role, dates
+   - 3-4 bullet points per role focusing on achievements and impact
+   - Quantified results where possible (percentages, dollar amounts, team sizes)
+5. **Education** - Degree, institution, relevant coursework/projects
+6. **Certifications** - Professional certifications relevant to the role
 
-List of missing ATS keywords
+### Optimization Guidelines:
+- Use keywords from the job description naturally throughout
+- Focus on achievements and impact rather than just responsibilities
+- Include metrics and quantifiable results
+- Tailor technical skills to match job requirements
+- Ensure easy scanning by ATS systems
 
-Brief rationale for key changes.`;
+## Cover Letter Generation Instructions
+Create a compelling cover letter with the following structure:
 
-        const demoCoverPromptTemplate = `Please write a professional, compelling cover letter based on this job description:
+### Format:
+- Professional business letter format
+- 3-4 paragraphs maximum
+- Personalized to the specific company and role
 
-JOB DESCRIPTION:
-{{JOB_DESCRIPTION}}
+### Content Structure:
+1. **Opening Paragraph** - Express genuine interest in the role and company
+2. **Body Paragraph(s)** - Highlight 2-3 most relevant experiences/achievements that directly relate to job requirements
+3. **Closing Paragraph** - Reiterate interest and suggest next steps
 
-REQUIREMENTS:
-- Address the specific company and role
-- Show enthusiasm for the role and company
-- Highlight relevant skills and experiences that match the job requirements
-- Include a strong call to action
-- Keep it concise (no more than one page)
-- Use a professional, conversational tone
-- Tailor to the specific technologies mentioned in the job description
+### Key Elements:
+- Research the company and reference their mission/values/recent news
+- Connect your experience directly to their specific needs
+- Show enthusiasm and cultural fit
+- Include a clear call to action
+- Professional yet personable tone
 
-USING THIS CANDIDATE'S INFORMATION:
-{{CANDIDATE_INFO}}`;
+${customInstructions ? `\n## Additional Instructions:\n${customInstructions}` : ''}
+
+## Output Format
+Please provide:
+1. **Complete Resume** in clean, formatted text
+2. **Complete Cover Letter** in business letter format
+3. **Brief explanation** of key tailoring decisions made
+
+---
+*Please ensure all content is original, accurate, and professionally written. Focus on creating compelling, results-oriented content that showcases qualifications while maintaining authenticity.*`;
+
+            generatedPrompt = basePrompt;
+            document.getElementById('output').textContent = basePrompt;
+            document.getElementById('copyBtn').disabled = false;
+            showStatus('AI prompt generated successfully! Ready to copy and use with any AI assistant.', 'success');
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(generatedPrompt).then(() => {
+                showStatus('Prompt copied to clipboard! Paste it into ChatGPT, Claude, or your preferred AI assistant.', 'success');
+                
+                // Temporarily change button text
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                showStatus('Copy failed. Please select the text manually and copy.', 'error');
+            });
+        }
 
         function showStatus(message, type) {
-            const statusEl = document.getElementById('status');
-            let icon = '';
-            if (type === 'processing') {
-                icon = '<i class="fas fa-spinner fa-spin"></i> ';
-            } else if (type === 'success') {
-                icon = '<i class="fas fa-check-circle"></i> ';
-            } else if (type === 'error') {
-                icon = '<i class="fas fa-exclamation-circle"></i> ';
-            }
-            statusEl.innerHTML = icon + message;
-            statusEl.className = `status status-${type}`;
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
             
             if (type === 'success') {
                 setTimeout(() => {
-                    statusEl.style.display = 'none';
-                }, 3000);
+                    statusDiv.textContent = '';
+                    statusDiv.className = '';
+                }, 5000);
             }
         }
 
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toast-message');
-            toastMessage.textContent = message;
-            toast.className = isError ? 'toast error' : 'toast';
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        function generatePrompts() {
-            const jobDescription = document.getElementById('jobDescription').value.trim();
-            if (!jobDescription) {
-                showStatus('Please paste a job description first', 'error');
-                showToast('Please enter a job description', true);
-                return;
-            }
-            
-            showStatus('Generating prompts...', 'processing');
-            
-            try {
-                // Properly insert job description and candidate data
-                const resumePrompt = demoResumePromptTemplate
-                    .replace('{{JOB_DESCRIPTION}}', jobDescription)
-                    .replace('{{CANDIDATE_INFO}}', demoResumeData);
-                
-                const coverPrompt = demoCoverPromptTemplate
-                    .replace('{{JOB_DESCRIPTION}}', jobDescription)
-                    .replace('{{CANDIDATE_INFO}}', demoResumeData);
-                
-                document.getElementById('resumeOutput').value = resumePrompt;
-                document.getElementById('coverOutput').value = coverPrompt;
-                
-                showStatus('Prompts generated successfully!', 'success');
-                showToast('Prompts generated successfully!');
-            } catch (error) {
-                console.error('Error generating prompts:', error);
-                showStatus('Error generating prompts. Please try again.', 'error');
-                showToast('Error generating prompts', true);
-            }
-        }
-
-        function copyText(elementId, button) {
-            const element = document.getElementById(elementId);
-            element.select();
-            document.execCommand('copy');
-            
-            // Visual feedback
-            const parentBox = element.closest('.output-box');
-            const copyFeedback = parentBox.querySelector('.copy-feedback');
-            copyFeedback.classList.add('show');
-            
-            setTimeout(() => {
-                copyFeedback.classList.remove('show');
-            }, 2000);
-            
-            // Button feedback
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            button.style.background = '#c6f6d5';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '';
-            }, 2000);
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'Enter') {
-                generatePrompts();
-            }
+        // Auto-resize textareas
+        document.addEventListener('DOMContentLoaded', function() {
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            });
         });
-
-        window.onload = function() {
-            // Auto-generate with sample data
-            setTimeout(generatePrompts, 500);
-        };
     </script>
 </body>
 </html>
