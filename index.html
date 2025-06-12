@@ -1,454 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATS Resume & Cover Letter AI Generator</title>
-    <meta name="description" content="Generate ATS-optimized resumes and cover letters tailored to specific job descriptions using AI prompts">
-    <meta name="keywords" content="resume generator, ATS optimization, cover letter, job application, AI">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            min-height: 100vh; 
-            padding: 20px; 
-            line-height: 1.6;
-        }
-        
-        .container { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            background: white; 
-            border-radius: 20px; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15); 
-            overflow: hidden; 
-        }
-        
-        .header { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            text-align: center; 
-            padding: 40px; 
-        }
-        
-        .header h1 { 
-            font-size: 3em; 
-            margin-bottom: 15px; 
-            font-weight: 300; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p { 
-            font-size: 1.2em; 
-            opacity: 0.95; 
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .features { 
-            padding: 40px; 
-            background: #f8f9fa; 
-            text-align: center; 
-        }
-        
-        .features h2 { 
-            color: #333; 
-            margin-bottom: 30px; 
-            font-size: 2em; 
-        }
-        
-        .feature-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-            margin-top: 30px; 
-        }
-        
-        .feature-card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
-            transition: transform 0.3s ease; 
-        }
-        
-        .feature-card:hover { 
-            transform: translateY(-5px); 
-        }
-        
-        .feature-card h3 { 
-            color: #667eea; 
-            margin-bottom: 15px; 
-            font-size: 1.4em; 
-        }
-        
-        .content { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 0; 
-            min-height: 700px; 
-        }
-        
-        .input-section { 
-            padding: 40px; 
-            background: #f8f9fa; 
-            border-right: 1px solid #e9ecef; 
-        }
-        
-        .output-section { 
-            padding: 40px; 
-            background: white; 
-        }
-        
-        .form-group { 
-            margin-bottom: 25px; 
-        }
-        
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #333; 
-            font-size: 1.1em; 
-        }
-        
-        textarea { 
-            width: 100%; 
-            padding: 15px; 
-            border: 2px solid #e9ecef; 
-            border-radius: 10px; 
-            font-family: inherit; 
-            font-size: 14px; 
-            line-height: 1.5; 
-            resize: vertical; 
-            transition: all 0.3s ease; 
-        }
-        
-        textarea:focus { 
-            outline: none; 
-            border-color: #667eea; 
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15); 
-        }
-        
-        #jobDescription { 
-            min-height: 300px; 
-        }
-        
-        .generate-btn { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            border: none; 
-            padding: 18px 35px; 
-            border-radius: 10px; 
-            font-size: 1.1em; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            width: 100%; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .generate-btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4); 
-        }
-        
-        .output-box { 
-            background: #f8f9fa; 
-            border: 2px solid #e9ecef; 
-            border-radius: 10px; 
-            padding: 25px; 
-            min-height: 450px; 
-            font-family: 'Courier New', monospace; 
-            font-size: 13px; 
-            line-height: 1.5; 
-            white-space: pre-wrap; 
-            overflow-y: auto; 
-        }
-        
-        .copy-btn { 
-            background: #28a745; 
-            color: white; 
-            border: none; 
-            padding: 12px 25px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            margin-top: 15px; 
-            transition: all 0.3s ease; 
-            font-weight: 600;
-        }
-        
-        .copy-btn:hover { 
-            background: #218838; 
-            transform: translateY(-1px);
-        }
-        
-        .copy-btn:disabled { 
-            background: #ccc; 
-            cursor: not-allowed; 
-            transform: none;
-        }
-        
-        .status { 
-            margin-top: 15px; 
-            padding: 12px; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            text-align: center; 
-        }
-        
-        .status.success { 
-            background: #d4edda; 
-            color: #155724; 
-            border: 1px solid #c3e6cb; 
-        }
-        
-        .status.error { 
-            background: #f8d7da; 
-            color: #721c24; 
-            border: 1px solid #f5c6cb; 
-        }
-        
-        .instruction-textarea { 
-            min-height: 120px; 
-        }
-        
-        .cover-letter-textarea { 
-            min-height: 160px; 
-        }
-        
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .footer p {
-            opacity: 0.8;
-        }
-        
-        .github-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .github-link:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) { 
-            .content { 
-                grid-template-columns: 1fr; 
-            } 
-            .input-section { 
-                border-right: none; 
-                border-bottom: 1px solid #e9ecef; 
-            }
-            .header h1 {
-                font-size: 2em;
-            }
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 ATS Resume & Cover Letter AI Generator</h1>
-            <p>Generate professional, ATS-optimized resumes and cover letters tailored to specific job descriptions using intelligent AI prompts. Stand out from the competition with personalized applications.</p>
-        </div>
-        
-        <div class="features">
-            <h2>✨ Key Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>🎯 ATS Optimization</h3>
-                    <p>Generate prompts that create resumes optimized for Applicant Tracking Systems, ensuring your application gets noticed by recruiters.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📝 Smart Tailoring</h3>
-                    <p>Automatically analyze job descriptions and create personalized prompts that highlight your most relevant skills and experience.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚡ Quick Generation</h3>
-                    <p>Get professional-quality resume and cover letter prompts in seconds. Perfect for applying to multiple positions efficiently.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🎨 Professional Format</h3>
-                    <p>Generate content that follows industry best practices and professional formatting standards for maximum impact.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="content">
-            <div class="input-section">
-                <div class="form-group">
-                    <label for="jobDescription">📋 Job Description</label>
-                    <textarea id="jobDescription" placeholder="Paste the complete job description here including requirements, responsibilities, and company information..." required></textarea>
-                </div>
-                
-                <button class="generate-btn" onclick="generateUnifiedPrompt()">🎯 Generate AI Prompts</button>
-                <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()" disabled style="width: 100%; margin-top: 10px;">📄 Copy Complete Prompt</button>
-                <div id="status"></div>
-
-                <div class="form-group" style="margin-top: 25px;">
-                    <label for="instructions">💡 Custom Instructions (Optional)</label>
-                    <textarea id="instructions" class="instruction-textarea" placeholder="Add any specific requirements or preferences for the resume/cover letter generation..."></textarea>
-                </div>
-            </div>
-            
-            <div class="output-section">
-                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.4em;">🤖 Generated AI Prompt</h3>
-                <div id="output" class="output-box">Your tailored AI prompt will appear here after analyzing the job description...</div>
-                
-                <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196f3;">
-                    <strong>💡 How to use:</strong><br>
-                    1. Paste job description above<br>
-                    2. Click "Generate AI Prompts"<br>
-                    3. Copy the generated prompt<br>
-                    4. Use with ChatGPT, Claude, or any AI assistant<br>
-                    5. Get your tailored resume and cover letter!
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>Open source ATS Resume Generator | <a href="#" class="github-link">View on GitHub</a></p>
-            <p style="margin-top: 10px; font-size: 0.9em;">Built for job seekers who want to stand out with AI-powered personalization</p>
-        </div>
-    </div>
-
-    <script>
-        let generatedPrompt = '';
-
-        function generateUnifiedPrompt() {
-            const jobDescription = document.getElementById('jobDescription').value.trim();
-            const customInstructions = document.getElementById('instructions').value.trim();
-            
-            if (!jobDescription) {
-                showStatus('Please paste a job description first.', 'error');
-                return;
-            }
-
-            const basePrompt = `# Professional Resume & Cover Letter Generation Request
-
-## Job Analysis
-Please analyze the following job posting and create a tailored resume and cover letter based on the provided context:
-
-**Job Description:**
-${jobDescription}
-
-## Resume Generation Instructions
-Create an ATS-optimized resume with the following specifications:
-
-### Format Requirements:
-- Clean, professional layout optimized for ATS systems
-- Clear section headers and consistent formatting
-- Bullet points with strong action verbs and quantified achievements
-- Keywords naturally integrated from the job description
-- 1-2 pages maximum length
-
-### Content Structure:
-1. **Contact Information** - Professional email, phone, LinkedIn, location
-2. **Professional Summary** - 3-4 lines highlighting relevant experience and key skills
-3. **Core Competencies** - 8-12 relevant technical and soft skills
-4. **Professional Experience** - 3-4 most relevant positions with:
-   - Company, role, dates
-   - 3-4 bullet points per role focusing on achievements and impact
-   - Quantified results where possible (percentages, dollar amounts, team sizes)
-5. **Education** - Degree, institution, relevant coursework/projects
-6. **Certifications** - Professional certifications relevant to the role
-
-### Optimization Guidelines:
-- Use keywords from the job description naturally throughout
-- Focus on achievements and impact rather than just responsibilities
-- Include metrics and quantifiable results
-- Tailor technical skills to match job requirements
-- Ensure easy scanning by ATS systems
-
-## Cover Letter Generation Instructions
-Create a compelling cover letter with the following structure:
-
-### Format:
-- Professional business letter format
-- 3-4 paragraphs maximum
-- Personalized to the specific company and role
-
-### Content Structure:
-1. **Opening Paragraph** - Express genuine interest in the role and company
-2. **Body Paragraph(s)** - Highlight 2-3 most relevant experiences/achievements that directly relate to job requirements
-3. **Closing Paragraph** - Reiterate interest and suggest next steps
-
-### Key Elements:
-- Research the company and reference their mission/values/recent news
-- Connect your experience directly to their specific needs
-- Show enthusiasm and cultural fit
-- Include a clear call to action
-- Professional yet personable tone
-
-${customInstructions ? `\n## Additional Instructions:\n${customInstructions}` : ''}
-
-## Output Format
-Please provide:
-1. **Complete Resume** in clean, formatted text
-2. **Complete Cover Letter** in business letter format
-3. **Brief explanation** of key tailoring decisions made
-
----
-*Please ensure all content is original, accurate, and professionally written. Focus on creating compelling, results-oriented content that showcases qualifications while maintaining authenticity.*`;
-
-            generatedPrompt = basePrompt;
-            document.getElementById('output').textContent = basePrompt;
-            document.getElementById('copyBtn').disabled = false;
-            showStatus('AI prompt generated successfully! Ready to copy and use with any AI assistant.', 'success');
-        }
-
-        function copyToClipboard() {
-            navigator.clipboard.writeText(generatedPrompt).then(() => {
-                showStatus('Prompt copied to clipboard! Paste it into ChatGPT, Claude, or your preferred AI assistant.', 'success');
-                
-                // Temporarily change button text
-                const btn = document.getElementById('copyBtn');
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            }).catch(() => {
-                showStatus('Copy failed. Please select the text manually and copy.', 'error');
-            });
-        }
-
-        function showStatus(message, type) {
-            const statusDiv = document.getElementById('status');
-            statusDiv.textContent = message;
-            statusDiv.className = `status ${type}`;
-            
-            if (type === 'success') {
-                setTimeout(() => {
-                    statusDiv.textContent = '';
-                    statusDiv.className = '';
-                }, 5000);
-            }
-        }
-
-        // Auto-resize textareas
-        document.addEventListener('DOMContentLoaded', function() {
-            const textareas = document.querySelectorAll('textarea');
-            textareas.forEach(textarea => {
-                textarea.addEventListener('input', function() {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+{
+  "resume_title": "Azure Cloud Architect",
+  "cover_letter_title": "Azure Cloud Architect",
+  "profile": {
+    "summary": "Certified Microsoft Azure Solutions Architect Expert (AZ-305) with 5+ years of experience designing secure, scalable cloud solutions. Proven track record leading Azure migrations, building CI/CD pipelines, and automating infrastructure with Terraform. Passionate about helping businesses leverage cloud technology to drive real outcomes, with expertise in DevOps, hybrid cloud, and cost optimisation."
+  },
+  "core_competencies": [
+    {
+      "category": "**Azure Architecture**",
+      "skills": "AKS, App Services, Azure DevOps, Cosmos DB, Functions, VNETs, Azure Blueprints"
+    },
+    {
+      "category": "**DevOps & CI/CD**",
+      "skills": "Terraform, GitHub Actions, Jenkins, Azure DevOps, Helm, ARM/Bicep Templates"
+    },
+    {
+      "category": "**Programming & Scripting**",
+      "skills": "Python, PowerShell, Bash, C#, Java, JavaScript (Node.js)"
+    },
+    {
+      "category": "**Security & Compliance**",
+      "skills": "Azure IAM, RBAC, GDPR, SOC2, ISO, HashiCorp Vault, Azure Policy"
+    },
+    {
+      "category": "**Networking & Infrastructure**",
+      "skills": "VPCs, Load Balancers, DNS, CDN, GSLB, NAT Gateways, Kubernetes, Docker"
+    },
+    {
+      "category": "**Monitoring & Cost Ops**",
+      "skills": "Prometheus, Grafana, Azure Monitor, FinOps strategies"
+    }
+  ],
+  "cover_letter": {
+    "date": "June 12, 2025",
+    "recipient": {
+      "title": "Hiring Manager",
+      "company": "Nordcloud"
+    },
+    "content": {
+      "opening": "I’ve admired Nordcloud’s work in leading the European cloud revolution, especially your triple-certified expertise across AWS, Azure, and GCP. Your recent projects helping businesses balance quick wins with sustainable value really resonate with my approach to cloud architecture. I’d love to bring my Azure expertise to your team and help accelerate your growth in the UK market.",
+      "fit_reasons_bullets": [
+        "● Led a team of 6 engineers to build cross-cloud AI platforms on Azure, AWS, and GCP, supporting 5,000+ active business users with 99.9% uptime.",
+        "● Designed and implemented a GDPR-compliant Azure architecture for medical data at Medimitr, ensuring full compliance with UK healthcare regulations.",
+        "● Automated incident response with Splunk/ServiceNow at Google, reducing resolution time by 15% across 272 production alerts.",
+        "● Optimised cloud resources through right-sizing and auto-scaling, generating £50K in annual cost savings for a major client."
+      ],
+      "closing_paragraph": "I’m keen to discuss how my experience with Azure migrations, DevOps automation, and cost optimisation can contribute to Nordcloud’s success. I’ve attached my resume and would welcome the chance to share more about my work. Let’s schedule a chat to explore how I can help your clients achieve their cloud goals.",
+      "closing": "Thank you for your consideration"
+    },
+    "signature": {
+      "name": "Jamal Pasha",
+      "location": "London",
+      "date": "12/06/2025"
+    }
+  }
+}
